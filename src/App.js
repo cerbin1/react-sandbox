@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Persons from "./Person/Persons";
+import Main2 from "./assignment_2/Main2";
 
 const App = () => {
 
     return (
         <div>
-            <Persons/>
+            <Main2/>
         </div>
     )
 };
