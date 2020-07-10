@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import Persons from "../components/Persons/Persons";
+import PersonsApp from "../components/Persons/containers/PersonsApp";
 
 const App = () => {
-
     return (
         <div>
-            <Persons/>
+            <PersonsApp/>
         </div>
     )
 };
