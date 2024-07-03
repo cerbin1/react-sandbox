@@ -34,7 +34,6 @@ export default function Projects() {
 
   function handleCancelSaveProject() {
     setCreateMode(false);
-
   }
 
   return (
@@ -60,7 +59,12 @@ export default function Projects() {
           </h3>
         ))}
       </div>
-      {createMode && <CreateProject onSave={handleSaveProject} onCancel={handleCancelSaveProject} />}
+      {createMode && (
+        <CreateProject
+          onSave={handleSaveProject}
+          onCancel={handleCancelSaveProject}
+        />
+      )}
       {!createMode && (
         <div className="mx-auto text-center pt-48">
           <img
