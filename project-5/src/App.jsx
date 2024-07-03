@@ -1,11 +1,7 @@
 import Projects from "./components/Projects";
 
 function App() {
-  return (
-    <>
-      <Projects />
-    </>
-  );
+  return <Projects />;
 }
 
 export default App;
