@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CreateProject from "./CreateProject";
 import CreateProjectButton from "./CreateProjectButton";
+import ProjectDetails from "./ProjectDetails";
 
 export default function Projects() {
   const [projects, setProjects] = useState([
@@ -16,6 +17,7 @@ export default function Projects() {
     },
   ]);
   const [createMode, setCreateMode] = useState(false);
+  const [selectedProject, setSelectedProject] = useState();
 
   function handleCreateModeChange() {
     setCreateMode(true);
@@ -52,6 +54,9 @@ export default function Projects() {
           <h3
             className="text-gray-300 mx-12 mt-6 cursor-pointer hover:text-gray-50 hover:bg-zinc-900 py-1"
             key={project.title}
+            onClick={() => {
+              setSelectedProject(project);
+            }}
           >
             {project.title}
           </h3>
@@ -63,7 +68,7 @@ export default function Projects() {
           onCancel={handleCancelSaveProject}
         />
       )}
-      {!createMode && (
+      {!createMode && !selectedProject && (
         <div className="mx-auto text-center pt-48">
           <img
             className="w-16 h-16 mx-auto"
@@ -81,6 +86,7 @@ export default function Projects() {
           </CreateProjectButton>
         </div>
       )}
+      {selectedProject && <ProjectDetails project={selectedProject} />}
     </div>
   );
 }
