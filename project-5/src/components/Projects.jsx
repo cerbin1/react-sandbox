@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CreateProject from "./CreateProject";
+import CreateProjectButton from "./CreateProjectButton";
 
 export default function Projects() {
   const [projects, setProjects] = useState([
@@ -39,16 +40,13 @@ export default function Projects() {
   return (
     <div className="flex h-screen mt-8">
       <div className="w-1/5 bg-black rounded-tr-2xl">
-        <div className="flex flex-col">
+        <div className="pl-12">
           <h2 className="text-3xl font-bold mt-12 text-white p-12 uppercase">
             Your Projects
           </h2>
-          <button
-            className="bg-zinc-800 w-1/3 px-3 py-2 ml-12 rounded-md text-gray-400 hover:bg-zinc-700 hover:text-gray-300"
-            onClick={handleCreateModeChange}
-          >
+          <CreateProjectButton onButtonClick={handleCreateModeChange}>
             + Add Project
-          </button>
+          </CreateProjectButton>
         </div>
         {projects.map((project) => (
           <h3
@@ -78,12 +76,9 @@ export default function Projects() {
           <p className="py-4 text-gray-500">
             Select a project or get started with a new one
           </p>
-          <button
-            onClick={handleCreateModeChange}
-            className="bg-zinc-800 py-2 px-4 rounded-md text-gray-400 hover:bg-zinc-700 hover:text-gray-300"
-          >
+          <CreateProjectButton onButtonClick={handleCreateModeChange}>
             Create new project
-          </button>
+          </CreateProjectButton>
         </div>
       )}
     </div>
