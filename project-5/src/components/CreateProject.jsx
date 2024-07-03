@@ -1,4 +1,6 @@
-import { useState, useRef } from "react";
+import InputGroup from "./InputGroup";
+import TextareaGroup from "./TextareaGroup";
+
 export default function CreateProject({ onSave, onCancel }) {
   const title = useRef();
   const description = useRef();
@@ -29,46 +31,9 @@ export default function CreateProject({ onSave, onCancel }) {
             Save
           </button>
         </div>
-        <div className="text-left my-2">
-          <label className="uppercase text-gray-600 font-bold" htmlFor="title">
-            Title
-          </label>
-          <input
-            className="w-full py-2 px-4 border-b-2 border-neutral-400 bg-neutral-300"
-            type="text"
-            id="title"
-            ref={title}
-          />
-        </div>
-        <div className="text-left my-2">
-          <label
-            className="uppercase text-gray-600 font-bold"
-            htmlFor="description"
-          >
-            Description
-          </label>
-          <textarea
-            rows={3}
-            className="w-full py-2 px-4 border-b-2 border-neutral-400 bg-neutral-300"
-            type="text"
-            id="description"
-            ref={description}
-          />
-        </div>
-        <div className="text-left my-2">
-          <label
-            className="uppercase text-gray-600 font-bold"
-            htmlFor="due-date"
-          >
-            Due Date
-          </label>
-          <input
-            className="w-full py-2 px-4 border-b-2 border-neutral-400 bg-neutral-300"
-            type="date"
-            id="due-date"
-            ref={dueDate}
-          />
-        </div>
+        <InputGroup label="Title" type="text" ref={title} />
+        <TextareaGroup label="Description" ref={description} />
+        <InputGroup label="Due Date" type="date" ref={dueDate} />
       </div>
     </div>
   );
