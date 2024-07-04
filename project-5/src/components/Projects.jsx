@@ -9,11 +9,13 @@ export default function Projects() {
       title: "Learning React",
       description: "description",
       dueDate: "2022-01-01",
+      tasks: ["task 1", "task 2", "task 3"],
     },
     {
       title: "Mastering React",
       description: "description",
       dueDate: "2022-01-01",
+      tasks: ["task 1", "task 2", "task 3"],
     },
   ]);
   const [createMode, setCreateMode] = useState(false);
@@ -42,6 +44,34 @@ export default function Projects() {
   function handleDeleteProject() {
     setProjects(projects.filter((project) => project !== selectedProject));
     setSelectedProject(undefined);
+  }
+
+  function handleTaskCreate(taskName) {
+    const projectWithTaskAdded = {
+      ...selectedProject,
+      tasks: [...selectedProject.tasks, taskName],
+    };
+    setProjects(
+      projects.map((project) =>
+        project === selectedProject ? projectWithTaskAdded : project
+      )
+    );
+    setSelectedProject(projectWithTaskAdded);
+  }
+
+  function handleTaskDelete(taskIndex) {
+    const projectWithTaskRemoved = {
+      ...selectedProject,
+      tasks: selectedProject.tasks.filter(
+        (_task, index) => index !== taskIndex
+      ),
+    };
+    setProjects(
+      projects.map((project) =>
+        project === selectedProject ? projectWithTaskRemoved : project
+      )
+    );
+    setSelectedProject(projectWithTaskRemoved);
   }
 
   return (
@@ -95,6 +125,8 @@ export default function Projects() {
         <ProjectDetails
           project={selectedProject}
           onDeleteProject={handleDeleteProject}
+          onTaskCreate={handleTaskCreate}
+          onTaskDelete={handleTaskDelete}
         />
       )}
     </div>

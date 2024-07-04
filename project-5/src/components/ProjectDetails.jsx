@@ -1,4 +1,13 @@
-export default function ProjectDetails({ project, onDeleteProject }) {
+import { useRef } from "react";
+
+export default function ProjectDetails({
+  project,
+  onDeleteProject,
+  onTaskCreate,
+  onTaskDelete,
+}) {
+  const task = useRef();
+
   return (
     <div className="w-4/5 py-24 px-10 mr-60">
       <div className="flex justify-between">
@@ -18,10 +27,29 @@ export default function ProjectDetails({ project, onDeleteProject }) {
         <input
           className="my-4 py-0.5 px-4 mr-4 rounded bg-neutral-300"
           type="text"
+          ref={task}
         />
-        <button>Add Task</button>
+        <button onClick={() => onTaskCreate(task.current.value)}>
+          Add Task
+        </button>
       </div>
-      <p>This project does not have any tasks yet.</p>
+      {project.tasks.length > 0 ? (
+        <>
+          {project.tasks.map((task, index) => (
+            <div key={index} className="flex justify-between bg-amber-50">
+              <p className="py-6 px-5">{task}</p>
+              <button
+                className="py-6 px-5 hover:text-red-600"
+                onClick={() => onTaskDelete(index)}
+              >
+                Clear
+              </button>
+            </div>
+          ))}
+        </>
+      ) : (
+        <p>This project does not have any tasks yet.</p>
+      )}
     </div>
   );
 }
