@@ -24,6 +24,7 @@ export default function Projects() {
 
   function handleCreateModeChange() {
     setCreateMode(true);
+    setSelectedProject(undefined);
   }
 
   function handleCreateProject(project) {
@@ -37,9 +38,10 @@ export default function Projects() {
     ]);
     setCreateMode(false);
   }
-  
+
   function selectProjectHandler(project) {
     setSelectedProject(project);
+    setCreateMode(false);
   }
 
   function handleCancelProject() {
