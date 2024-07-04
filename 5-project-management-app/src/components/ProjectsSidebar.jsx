@@ -1,4 +1,4 @@
-import CreateProjectButton from "./CreateProjectButton";
+import Button from "./Button";
 import ProjectList from "./ProjectList";
 
 export default function ProjectsSidebar({ projects, onSelectProject, onCreateProjectClick }) {
@@ -8,9 +8,9 @@ export default function ProjectsSidebar({ projects, onSelectProject, onCreatePro
         <h2 className="text-3xl font-bold mt-12 text-white p-12 uppercase">
           Your Projects
         </h2>
-        <CreateProjectButton onButtonClick={onCreateProjectClick}>
+        <Button onClick={onCreateProjectClick}>
           + Add Project
-        </CreateProjectButton>
+        </Button>
       </div>
       <ProjectList projects={projects} onSelectProject={onSelectProject} />
     </div>

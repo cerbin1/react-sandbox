@@ -1,4 +1,4 @@
-import CreateProjectButton from "./CreateProjectButton";
+import Button from "./Button";
 
 export default function NoProjectSelected({onCreateProjectClick}) {
   return (
@@ -10,9 +10,9 @@ export default function NoProjectSelected({onCreateProjectClick}) {
       <p className="py-4 text-gray-500">
         Select a project or get started with a new one
       </p>
-      <CreateProjectButton onButtonClick={onCreateProjectClick}>
+      <Button onClick={onCreateProjectClick}>
         Create new project
-      </CreateProjectButton>
+      </Button>
     </div>
   );
 }
