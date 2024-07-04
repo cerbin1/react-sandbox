@@ -30,7 +30,7 @@ export default function App() {
     setSelectedProject(undefined);
   }
 
-  function selectProjectHandler(project) {
+  function handleSelectProject(project) {
     setSelectedProject(project);
   }
 
@@ -75,7 +75,7 @@ export default function App() {
     <div className="flex h-screen mt-8">
       <ProjectsSidebar
         projects={projects}
-        onSelectProject={selectProjectHandler}
+        onSelectProject={handleSelectProject}
         onCreateProjectClick={handleStartCreateProject}
       />
       {selectedProject === null && (
