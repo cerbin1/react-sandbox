@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function CreateTaskForm({ onTaskCreate }) {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState("");
 
   function handleChange(event) {
     setTask(event.target.value);

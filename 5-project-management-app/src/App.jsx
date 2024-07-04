@@ -44,6 +44,11 @@ export default function App() {
   }
 
   function handleTaskCreate(taskName) {
+    if (taskName.trim() === "") {
+      alert("Wrong task name!");
+      return;
+    }
+
     const projectWithTaskAdded = {
       ...selectedProject,
       tasks: [...selectedProject.tasks, taskName],
