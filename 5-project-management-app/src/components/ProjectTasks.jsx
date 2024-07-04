@@ -1,7 +1,7 @@
 export default function ProjectTasks({ tasks, onTaskDelete }) {
   return (
     <>
-      {tasks.length > 0 ? (
+      {tasks?.length > 0 ? (
         <>
           {tasks.map((task, index) => (
             <div key={index} className="flex justify-between bg-amber-50">
