@@ -1,15 +1,20 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 export default function CreateTaskForm({ onTaskCreate }) {
-  const task = useRef();
+  const [task, setTask] = useState();
+
+  function handleChange(event) {
+    setTask(event.target.value);
+  }
+
   return (
     <div>
       <input
         className="my-4 py-0.5 px-4 mr-4 rounded bg-neutral-300"
         type="text"
-        ref={task}
+        onChange={handleChange}
       />
-      <button onClick={() => onTaskCreate(task.current.value)}>Add Task</button>
+      <button onClick={() => onTaskCreate(task)}>Add Task</button>
     </div>
   );
 }
