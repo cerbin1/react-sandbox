@@ -2,6 +2,7 @@ import { useState } from "react";
 import CreateProjectForm from "./CreateProjectForm";
 import CreateProjectButton from "./CreateProjectButton";
 import ProjectDetails from "./ProjectDetails";
+import ProjectList from "./ProjectList";
 
 export default function Projects() {
   const [projects, setProjects] = useState([
@@ -35,6 +36,10 @@ export default function Projects() {
       },
     ]);
     setCreateMode(false);
+  }
+  
+  function selectProjectHandler(project) {
+    setSelectedProject(project);
   }
 
   function handleCancelProject() {
@@ -85,17 +90,10 @@ export default function Projects() {
             + Add Project
           </CreateProjectButton>
         </div>
-        {projects.map((project) => (
-          <h3
-            className="text-gray-300 mx-12 mt-6 cursor-pointer hover:text-gray-50 hover:bg-zinc-900 py-1"
-            key={project.title}
-            onClick={() => {
-              setSelectedProject(project);
-            }}
-          >
-            {project.title}
-          </h3>
-        ))}
+        <ProjectList
+          projects={projects}
+          onSelectProject={selectProjectHandler}
+        />
       </div>
       {createMode && (
         <CreateProjectForm
