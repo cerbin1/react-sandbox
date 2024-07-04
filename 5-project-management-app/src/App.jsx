@@ -1,9 +1,8 @@
 import { useState } from "react";
 import CreateProjectForm from "./components/CreateProjectForm";
-import CreateProjectButton from "./components/CreateProjectButton";
 import ProjectDetails from "./components/ProjectDetails";
-import ProjectList from "./components/ProjectList";
 import NoProjectSelected from "./components/NoProjectSelected";
+import ProjectsSidebar from "./components/ProjectsSidebar";
 
 export default function App() {
   const [projects, setProjects] = useState([
@@ -22,7 +21,7 @@ export default function App() {
   ]);
   const [selectedProject, setSelectedProject] = useState();
 
-  function handleCreateModeChange() {
+  function handleStartCreateProject() {
     setSelectedProject(null);
   }
 
@@ -81,20 +80,11 @@ export default function App() {
 
   return (
     <div className="flex h-screen mt-8">
-      <div className="w-1/5 bg-black rounded-tr-2xl">
-        <div className="pl-12">
-          <h2 className="text-3xl font-bold mt-12 text-white p-12 uppercase">
-            Your Projects
-          </h2>
-          <CreateProjectButton onButtonClick={handleCreateModeChange}>
-            + Add Project
-          </CreateProjectButton>
-        </div>
-        <ProjectList
-          projects={projects}
-          onSelectProject={selectProjectHandler}
-        />
-      </div>
+      <ProjectsSidebar
+        projects={projects}
+        onSelectProject={selectProjectHandler}
+        onCreateProjectClick={handleStartCreateProject}
+      />
       {selectedProject === null && (
         <CreateProjectForm
           createProject={handleCreateProject}
@@ -102,7 +92,7 @@ export default function App() {
         />
       )}
       {selectedProject === undefined && (
-        <NoProjectSelected onCreateProjectClick={handleCreateModeChange} />
+        <NoProjectSelected onCreateProjectClick={handleStartCreateProject} />
       )}
       {selectedProject && (
         <ProjectDetails
