@@ -25,7 +25,7 @@ export default function Projects() {
     setCreateMode(true);
   }
 
-  function handleSaveProject(project) {
+  function handleCreateProject(project) {
     setProjects([
       ...projects,
       {
@@ -37,7 +37,7 @@ export default function Projects() {
     setCreateMode(false);
   }
 
-  function handleCancelSaveProject() {
+  function handleCancelProject() {
     setCreateMode(false);
   }
 
@@ -99,8 +99,8 @@ export default function Projects() {
       </div>
       {createMode && (
         <CreateProjectForm
-          onSave={handleSaveProject}
-          onCancel={handleCancelSaveProject}
+          createProject={handleCreateProject}
+          cancelCreatingProject={handleCancelProject}
         />
       )}
       {!createMode && !selectedProject && (

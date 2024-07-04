@@ -2,13 +2,13 @@ import { useRef } from "react";
 import InputGroup from "./InputGroup";
 import TextareaGroup from "./TextareaGroup";
 
-export default function CreateProjectForm({ onSave, onCancel }) {
+export default function CreateProjectForm({ createProject, cancelCreatingProject }) {
   const title = useRef();
   const description = useRef();
   const dueDate = useRef();
 
   function handleProjectSave() {
-    onSave({
+    createProject({
       title: title.current.value,
       description: description.current.value,
       dueDate: dueDate.current.value,
@@ -17,11 +17,11 @@ export default function CreateProjectForm({ onSave, onCancel }) {
 
   return (
     <div className="w-4/5 text-center ">
-      <div className="flex flex-col  mt-36 w-1/2 mx-auto ">
+      <div className="flex flex-col mt-36 w-1/2 mx-auto ">
         <div className="flex justify-end">
           <button
             className="px-5 py-2 rounded hover:bg-black hover:text-white"
-            onClick={onCancel}
+            onClick={cancelCreatingProject}
           >
             Cancel
           </button>
