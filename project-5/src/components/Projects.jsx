@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CreateProject from "./CreateProject";
+import CreateProjectForm from "./CreateProjectForm";
 import CreateProjectButton from "./CreateProjectButton";
 import ProjectDetails from "./ProjectDetails";
 
@@ -98,7 +98,7 @@ export default function Projects() {
         ))}
       </div>
       {createMode && (
-        <CreateProject
+        <CreateProjectForm
           onSave={handleSaveProject}
           onCancel={handleCancelSaveProject}
         />

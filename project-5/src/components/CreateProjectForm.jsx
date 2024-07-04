@@ -2,7 +2,7 @@ import { useRef } from "react";
 import InputGroup from "./InputGroup";
 import TextareaGroup from "./TextareaGroup";
 
-export default function CreateProject({ onSave, onCancel }) {
+export default function CreateProjectForm({ onSave, onCancel }) {
   const title = useRef();
   const description = useRef();
   const dueDate = useRef();
