@@ -1,9 +1,14 @@
-export default function ProjectDetails({ project }) {
+export default function ProjectDetails({ project, onDeleteProject }) {
   return (
     <div className="w-4/5 py-24 px-10 mr-60">
       <div className="flex justify-between">
         <h2 className="text-3xl font-bold">{project.title}</h2>
-        <button>Delete</button>
+        <button
+          onClick={() => onDeleteProject(project)}
+          className="hover:text-gray-800"
+        >
+          Delete
+        </button>
       </div>
       <p className="py-4 text-gray-500">{project.dueDate}</p>
       <p>{project.description}</p>

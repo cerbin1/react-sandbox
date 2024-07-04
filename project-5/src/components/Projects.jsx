@@ -39,6 +39,11 @@ export default function Projects() {
     setCreateMode(false);
   }
 
+  function handleDeleteProject() {
+    setProjects(projects.filter((project) => project !== selectedProject));
+    setSelectedProject(undefined);
+  }
+
   return (
     <div className="flex h-screen mt-8">
       <div className="w-1/5 bg-black rounded-tr-2xl">
@@ -86,7 +91,12 @@ export default function Projects() {
           </CreateProjectButton>
         </div>
       )}
-      {selectedProject && <ProjectDetails project={selectedProject} />}
+      {selectedProject && (
+        <ProjectDetails
+          project={selectedProject}
+          onDeleteProject={handleDeleteProject}
+        />
+      )}
     </div>
   );
 }
