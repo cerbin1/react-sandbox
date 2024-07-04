@@ -3,6 +3,7 @@ import CreateProjectForm from "./CreateProjectForm";
 import CreateProjectButton from "./CreateProjectButton";
 import ProjectDetails from "./ProjectDetails";
 import ProjectList from "./ProjectList";
+import NoProjectSelected from "./NoProjectSelected";
 
 export default function Projects() {
   const [projects, setProjects] = useState([
@@ -103,24 +104,7 @@ export default function Projects() {
           cancelCreatingProject={handleCancelProject}
         />
       )}
-      {!createMode && !selectedProject && (
-        <div className="mx-auto text-center pt-48">
-          <img
-            className="w-16 h-16 mx-auto"
-            src="logo.png"
-            alt="logo - paper"
-          />
-          <h3 className="text-xl font-bold text-zinc-700 py-4">
-            No Project Selected
-          </h3>
-          <p className="py-4 text-gray-500">
-            Select a project or get started with a new one
-          </p>
-          <CreateProjectButton onButtonClick={handleCreateModeChange}>
-            Create new project
-          </CreateProjectButton>
-        </div>
-      )}
+      {!createMode && !selectedProject && <NoProjectSelected />}
       {selectedProject && (
         <ProjectDetails
           project={selectedProject}
