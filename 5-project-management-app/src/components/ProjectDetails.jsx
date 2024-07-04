@@ -21,6 +21,7 @@ export default function ProjectDetails({
       <p className="py-4 text-gray-500">{project.dueDate}</p>
       <p>{project.description}</p>
       <hr className="my-4 border-gray-500 border-1" />
+      <h3 className="text-2xl font-bold">Tasks</h3>
       <CreateTaskForm onTaskCreate={onTaskCreate} />
       <ProjectTasks tasks={project.tasks} onTaskDelete={onTaskDelete} />
     </div>
