@@ -26,14 +26,7 @@ export default function App() {
   }
 
   function handleCreateProject(project) {
-    setProjects([
-      ...projects,
-      {
-        title: project.title,
-        description: project.description,
-        dueDate: project.dueDate,
-      },
-    ]);
+    setProjects([...projects, { ...project }]);
     setSelectedProject(undefined);
   }
 
