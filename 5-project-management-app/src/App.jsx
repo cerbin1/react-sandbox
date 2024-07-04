@@ -20,12 +20,10 @@ export default function App() {
       tasks: ["task 1", "task 2", "task 3"],
     },
   ]);
-  const [createMode, setCreateMode] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
 
   function handleCreateModeChange() {
-    setCreateMode(true);
-    setSelectedProject(undefined);
+    setSelectedProject(null);
   }
 
   function handleCreateProject(project) {
@@ -37,16 +35,15 @@ export default function App() {
         dueDate: project.dueDate,
       },
     ]);
-    setCreateMode(false);
+    setSelectedProject(undefined);
   }
 
   function selectProjectHandler(project) {
     setSelectedProject(project);
-    setCreateMode(false);
   }
 
-  function handleCancelProject() {
-    setCreateMode(false);
+  function handleCancelCreateProject() {
+    setSelectedProject(undefined);
   }
 
   function handleDeleteProject() {
@@ -98,13 +95,13 @@ export default function App() {
           onSelectProject={selectProjectHandler}
         />
       </div>
-      {createMode && (
+      {selectedProject === null && (
         <CreateProjectForm
           createProject={handleCreateProject}
-          cancelCreatingProject={handleCancelProject}
+          cancelCreatingProject={handleCancelCreateProject}
         />
       )}
-      {!createMode && !selectedProject && (
+      {selectedProject === undefined && (
         <NoProjectSelected onCreateProjectClick={handleCreateModeChange} />
       )}
       {selectedProject && (
