@@ -104,7 +104,9 @@ export default function Projects() {
           cancelCreatingProject={handleCancelProject}
         />
       )}
-      {!createMode && !selectedProject && <NoProjectSelected />}
+      {!createMode && !selectedProject && (
+        <NoProjectSelected onCreateProjectClick={handleCreateModeChange} />
+      )}
       {selectedProject && (
         <ProjectDetails
           project={selectedProject}

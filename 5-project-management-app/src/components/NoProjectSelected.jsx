@@ -1,4 +1,6 @@
-export default function NoProjectSelected() {
+import CreateProjectButton from "./CreateProjectButton";
+
+export default function NoProjectSelected({onCreateProjectClick}) {
   return (
     <div className="mx-auto text-center pt-48">
       <img className="w-16 h-16 mx-auto" src="logo.png" alt="logo - paper" />
@@ -8,7 +10,7 @@ export default function NoProjectSelected() {
       <p className="py-4 text-gray-500">
         Select a project or get started with a new one
       </p>
-      <CreateProjectButton onButtonClick={handleCreateModeChange}>
+      <CreateProjectButton onButtonClick={onCreateProjectClick}>
         Create new project
       </CreateProjectButton>
     </div>
