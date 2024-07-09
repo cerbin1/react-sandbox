@@ -9,8 +9,8 @@ function App() {
   const [nextQuestionIndex, setNextQuestionIndex] = useState(0);
   const [questionAnswered, setQuestionAnswered] = useState(false);
   const [answers, setAnswers] = useState([]);
-  const [gameOver, setGameOver] = useState(false);
 
+  const gameOver = nextQuestionIndex === QUESTIONS.length;
   const question = QUESTIONS[nextQuestionIndex];
 
   function handleQuestionAnswer(event, answerIndex) {
@@ -38,9 +38,6 @@ function App() {
       ]);
 
       setQuestionAnswered(true);
-      if (nextQuestionIndex === QUESTIONS.length - 1) {
-        setGameOver(true);
-      }
     }
   }
 
