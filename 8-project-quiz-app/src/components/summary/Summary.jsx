@@ -1,5 +1,5 @@
-import quizComplete from "../assets/quiz-complete.png";
-import SummaryStat from "./summary/SummaryStat";
+import quizComplete from "../../assets/quiz-complete.png";
+import SummaryStat from "./SummaryStat";
 
 export default function Summary({ answers }) {
   const skipped = answers.filter(

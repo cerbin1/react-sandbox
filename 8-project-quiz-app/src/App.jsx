@@ -1,7 +1,7 @@
 import Answers from "./components/Answers";
 import Header from "./components/Header";
 import Question from "./components/Question";
-import Summary from "./components/Summary";
+import Summary from "./components/summary/Summary";
 import QUESTIONS from "./questions";
 import { useState } from "react";
 
