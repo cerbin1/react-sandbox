@@ -1,4 +1,5 @@
 import quizComplete from "../assets/quiz-complete.png";
+import SummaryStat from "./summary/SummaryStat";
 
 export default function Summary({ answers }) {
   const skipped = answers.filter(
@@ -14,24 +15,17 @@ export default function Summary({ answers }) {
       <img src={quizComplete} alt="quiz-complete" />
       <h2>Quiz Completed!</h2>
       <div id="summary-stats">
-        <p>
-          <span className="number">
-            {((skipped / answers.length) * 100).toFixed()}%
-          </span>
-          <span className="text">Skipped</span>
-        </p>
-        <p>
-          <span className="number">
-            {((correct / answers.length) * 100).toFixed()}%
-          </span>
-          <span className="text">Answered correctly</span>
-        </p>
-        <p>
-          <span className="number">
-            {((wrong / answers.length) * 100).toFixed()}%
-          </span>
-          <span className="text">Answered incorrectly</span>
-        </p>
+        <SummaryStat number={skipped} answersCount={answers.length}>
+          Skipped
+        </SummaryStat>
+
+        <SummaryStat number={correct} answersCount={answers.length}>
+          Answered correctly
+        </SummaryStat>
+
+        <SummaryStat number={wrong} answersCount={answers.length}>
+          Answered incorrectly
+        </SummaryStat>
       </div>
       {answers.map((answer, index) => (
         <ol key={index}>
