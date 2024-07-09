@@ -17,8 +17,7 @@ function App() {
     if (!questionAnswered) {
       let questionResult;
       if (answer) {
-        questionResult =
-          answer === question.answers[0] ? "correct" : "wrong";
+        questionResult = answer === question.answers[0] ? "correct" : "wrong";
       } else {
         questionResult = "skipped";
       }
