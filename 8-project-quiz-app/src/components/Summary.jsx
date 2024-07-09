@@ -31,7 +31,9 @@ export default function Summary({ answers }) {
         <ol key={index}>
           <h3>{index + 1}</h3>
           <li className="question">{answer.question}</li>
-          <li className={`user-answer ${answer.result}`}>{answer.answer}</li>
+          <li className={`user-answer ${answer.result}`}>
+            {answer.answer ? answer.answer : "Skipped"}
+          </li>
         </ol>
       ))}
     </div>

@@ -13,18 +13,17 @@ function App() {
   const gameOver = nextQuestionIndex === QUESTIONS.length;
   const question = QUESTIONS[nextQuestionIndex];
 
-  function handleQuestionAnswer(event, answerIndex) {
+  function handleQuestionAnswer(event, answer) {
     if (!questionAnswered) {
-      const questionAnswer =
-        question.answers[answerIndex === -1 ? 0 : answerIndex];
       let questionResult;
-      if (answerIndex === -1) {
-        questionResult = "skipped";
-      } else if (answerIndex === 0) {
-        questionResult = "correct";
-        event.target.className = "selected " + questionResult;
+      if (answer) {
+        questionResult =
+          answer === question.answers[0] ? "correct" : "wrong";
       } else {
-        questionResult = "wrong";
+        questionResult = "skipped";
+      }
+
+      if (event) {
         event.target.className = "selected " + questionResult;
       }
 
@@ -32,7 +31,7 @@ function App() {
         ...answers,
         {
           question: question.text,
-          answer: questionAnswer,
+          answer: answer,
           result: questionResult,
         },
       ]);
@@ -47,7 +46,7 @@ function App() {
   }
 
   function handleQuestionSkip() {
-    handleQuestionAnswer(null, -1);
+    handleQuestionAnswer();
   }
 
   return (
