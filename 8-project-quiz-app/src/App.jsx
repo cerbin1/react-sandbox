@@ -1,6 +1,9 @@
 import Header from "./components/Header";
+import ProgressBar from "./components/ProgressBar";
 import questions from "./questions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const TIMER = 5000;
 
 function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -8,6 +11,15 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
 
   const question = questions[questionIndex];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleQuestionAnswer(-1);
+    }, TIMER);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [questionIndex]);
 
   function handleQuestionAnswer(answerIndex) {
     if (answerIndex === 0) {
@@ -27,6 +39,7 @@ function App() {
         <div id="quiz">
           <div id="question-overview">
             <div id="question">
+              <ProgressBar timer={TIMER} />
               <h2>{question.text}</h2>
             </div>
             <div id="answers">
