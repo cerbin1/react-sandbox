@@ -1,26 +1,19 @@
 import Header from "./components/Header";
-import ProgressBar from "./components/ProgressBar";
+import QuestionFinish from "./components/QuestionFinish";
+import QuestionStart from "./components/QuestionStart";
 import Summary from "./components/Summary";
 import questions from "./questions";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const TIMER = 3000;
 
 function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [answered, setAnswered] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [gameOver, setGameOver] = useState(false);
 
   const question = questions[questionIndex];
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      handleQuestionAnswer(-1);
-    }, TIMER);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [questionIndex]);
 
   function handleQuestionAnswer(answerIndex) {
     const questionAnswer =
@@ -44,9 +37,14 @@ function App() {
     ]);
 
     setQuestionIndex(questionIndex + 1);
+    setAnswered(true);
     if (questionIndex === questions.length - 1) {
       setGameOver(true);
     }
+  }
+
+  function handleQuestionPauseFinish() {
+    setAnswered(false);
   }
 
   return (
@@ -56,7 +54,13 @@ function App() {
         <div id="quiz">
           <div id="question-overview">
             <div id="question">
-              <ProgressBar timer={TIMER} />
+              {answered && (
+                <QuestionFinish onFinish={handleQuestionPauseFinish} />
+              )}
+              {!answered && (
+                <QuestionStart handleAnswerTimeout={handleQuestionAnswer} />
+              )}
+
               <h2>{question.text}</h2>
             </div>
             <div id="answers">
