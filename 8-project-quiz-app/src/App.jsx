@@ -4,11 +4,16 @@ import { useState } from "react";
 
 function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [points, setPoints] = useState(0);
   const [gameOver, setGameOver] = useState(false);
 
   const question = questions[questionIndex];
 
-  function handleQuestionAnswer() {
+  function handleQuestionAnswer(answerIndex) {
+    if (answerIndex === 0) {
+      setPoints((prevPoints) => prevPoints + 1);
+    }
+
     setQuestionIndex(questionIndex + 1);
     if (questionIndex === questions.length - 1) {
       setGameOver(true);
@@ -25,16 +30,22 @@ function App() {
               <h2>{question.text}</h2>
             </div>
             <div id="answers">
-              {question.answers.map((answer) => (
+              {question.answers.map((answer, index) => (
                 <div key={answer} className="answer">
-                  <button onClick={handleQuestionAnswer}>{answer}</button>
+                  <button onClick={() => handleQuestionAnswer(index)}>
+                    {answer}
+                  </button>
                 </div>
               ))}
             </div>
           </div>
         </div>
       )}
-      {gameOver && <p>Game Over</p>}
+      {gameOver && (
+        <>
+          <p>Game Over</p> <p>Points: {points}</p>
+        </>
+      )}
     </>
   );
 }
