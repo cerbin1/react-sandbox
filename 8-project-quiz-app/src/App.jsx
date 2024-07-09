@@ -1,6 +1,6 @@
 import Header from "./components/Header";
-import QuestionFinish from "./components/QuestionFinish";
-import QuestionStart from "./components/QuestionStart";
+import QuestionFinishTimeout from "./components/QuestionFinishTimeout";
+import QuestionStartTimeout from "./components/QuestionStartTimeout";
 import Summary from "./components/Summary";
 import questions from "./questions";
 import { useState } from "react";
@@ -60,10 +60,10 @@ function App() {
           <div id="question-overview">
             <div id="question">
               {answered && (
-                <QuestionFinish onFinish={handleQuestionPauseFinish} />
+                <QuestionFinishTimeout onFinish={handleQuestionPauseFinish} />
               )}
               {!answered && (
-                <QuestionStart handleAnswerTimeout={handleQuestionAnswer} />
+                <QuestionStartTimeout onFinish={handleQuestionAnswer} />
               )}
 
               <h2>{question.text}</h2>
