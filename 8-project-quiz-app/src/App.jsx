@@ -10,41 +10,46 @@ const TIMER = 3000;
 function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answered, setAnswered] = useState(false);
+  const [test, setTest] = useState();
   const [answers, setAnswers] = useState([]);
   const [gameOver, setGameOver] = useState(false);
 
   const question = questions[questionIndex];
 
-  function handleQuestionAnswer(answerIndex) {
-    const questionAnswer =
-      question.answers[answerIndex === -1 ? 0 : answerIndex];
-    let questionResult;
-    if (answerIndex === -1) {
-      questionResult = "skipped";
-    } else if (answerIndex === 0) {
-      questionResult = "correct";
-    } else {
-      questionResult = "wrong";
-    }
+  function handleQuestionAnswer(event, answerIndex) {
+    if (!answered) {
+      const questionAnswer =
+        question.answers[answerIndex === -1 ? 0 : answerIndex];
+      let questionResult;
+      if (answerIndex === -1) {
+        questionResult = "skipped";
+      } else if (answerIndex === 0) {
+        questionResult = "correct";
+      } else {
+        questionResult = "wrong";
+      }
 
-    setAnswers([
-      ...answers,
-      {
-        question: question.text,
-        answer: questionAnswer,
-        result: questionResult,
-      },
-    ]);
+      event.target.className = "selected " + questionResult;
 
-    setQuestionIndex(questionIndex + 1);
-    setAnswered(true);
-    if (questionIndex === questions.length - 1) {
-      setGameOver(true);
+      setAnswers([
+        ...answers,
+        {
+          question: question.text,
+          answer: questionAnswer,
+          result: questionResult,
+        },
+      ]);
+
+      setAnswered(true);
+      if (questionIndex === questions.length - 1) {
+        setGameOver(true);
+      }
     }
   }
 
   function handleQuestionPauseFinish() {
     setAnswered(false);
+    setQuestionIndex(questionIndex + 1);
   }
 
   return (
@@ -66,7 +71,9 @@ function App() {
             <div id="answers">
               {question.answers.map((answer, index) => (
                 <div key={answer} className="answer">
-                  <button onClick={() => handleQuestionAnswer(index)}>
+                  <button
+                    onClick={(event) => handleQuestionAnswer(event, index)}
+                  >
                     {answer}
                   </button>
                 </div>
