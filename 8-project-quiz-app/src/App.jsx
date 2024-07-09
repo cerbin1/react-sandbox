@@ -3,11 +3,11 @@ import ProgressBar from "./components/ProgressBar";
 import questions from "./questions";
 import { useState, useEffect } from "react";
 
-const TIMER = 5000;
+const TIMER = 1000;
 
 function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [points, setPoints] = useState(0);
+  const [answers, setAnswers] = useState([]);
   const [gameOver, setGameOver] = useState(false);
 
   const question = questions[questionIndex];
@@ -22,8 +22,33 @@ function App() {
   }, [questionIndex]);
 
   function handleQuestionAnswer(answerIndex) {
-    if (answerIndex === 0) {
-      setPoints((prevPoints) => prevPoints + 1);
+    if (answerIndex === -1) {
+      setAnswers([
+        ...answers,
+        {
+          question: question.text,
+          correct: false,
+          skipped: true,
+        },
+      ]);
+    } else if (answerIndex === 0) {
+      setAnswers([
+        ...answers,
+        {
+          question: question.text,
+          answer: question.answers[answerIndex],
+          correct: true,
+        },
+      ]);
+    } else {
+      setAnswers([
+        ...answers,
+        {
+          question: question.text,
+          answer: question.answers[answerIndex],
+          correct: false,
+        },
+      ]);
     }
 
     setQuestionIndex(questionIndex + 1);
@@ -56,7 +81,7 @@ function App() {
       )}
       {gameOver && (
         <>
-          <p>Game Over</p> <p>Points: {points}</p>
+          <p>Game Over</p> <p>Answers: {answers.length}</p>
         </>
       )}
     </>
