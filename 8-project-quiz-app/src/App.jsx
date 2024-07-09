@@ -1,9 +1,10 @@
 import Header from "./components/Header";
 import ProgressBar from "./components/ProgressBar";
+import Summary from "./components/Summary";
 import questions from "./questions";
 import { useState, useEffect } from "react";
 
-const TIMER = 1000;
+const TIMER = 3000;
 
 function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -27,8 +28,8 @@ function App() {
         ...answers,
         {
           question: question.text,
-          correct: false,
-          skipped: true,
+          answer: question.answers[0],
+          result: "skipped",
         },
       ]);
     } else if (answerIndex === 0) {
@@ -37,7 +38,7 @@ function App() {
         {
           question: question.text,
           answer: question.answers[answerIndex],
-          correct: true,
+          result: "correct",
         },
       ]);
     } else {
@@ -46,7 +47,7 @@ function App() {
         {
           question: question.text,
           answer: question.answers[answerIndex],
-          correct: false,
+          result: "wrong",
         },
       ]);
     }
@@ -79,11 +80,7 @@ function App() {
           </div>
         </div>
       )}
-      {gameOver && (
-        <>
-          <p>Game Over</p> <p>Answers: {answers.length}</p>
-        </>
-      )}
+      {gameOver && <Summary answers={answers} />}
     </>
   );
 }
