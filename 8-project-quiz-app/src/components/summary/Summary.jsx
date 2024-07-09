@@ -32,7 +32,7 @@ export default function Summary({ answers }) {
           <h3>{index + 1}</h3>
           <li className="question">{answer.question}</li>
           <li className={`user-answer ${answer.result}`}>
-            {answer.answer ? answer.answer : "Skipped"}
+            {answer.answer ?? "Skipped"}
           </li>
         </ol>
       ))}
