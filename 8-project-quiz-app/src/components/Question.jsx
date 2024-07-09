@@ -1,7 +1,7 @@
 import QuestionTimer from "./QuestionTimer";
 
-const ANSWER_TIME = 3000;
-const NEW_QUESTION_TIME = 1500;
+const ANSWER_TIME = 10000;
+const NEW_QUESTION_TIME = 3000;
 
 export default function Question({
   question,
