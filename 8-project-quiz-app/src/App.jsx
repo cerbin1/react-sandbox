@@ -23,34 +23,25 @@ function App() {
   }, [questionIndex]);
 
   function handleQuestionAnswer(answerIndex) {
+    const questionAnswer =
+      question.answers[answerIndex === -1 ? 0 : answerIndex];
+    let questionResult;
     if (answerIndex === -1) {
-      setAnswers([
-        ...answers,
-        {
-          question: question.text,
-          answer: question.answers[0],
-          result: "skipped",
-        },
-      ]);
+      questionResult = "skipped";
     } else if (answerIndex === 0) {
-      setAnswers([
-        ...answers,
-        {
-          question: question.text,
-          answer: question.answers[answerIndex],
-          result: "correct",
-        },
-      ]);
+      questionResult = "correct";
     } else {
-      setAnswers([
-        ...answers,
-        {
-          question: question.text,
-          answer: question.answers[answerIndex],
-          result: "wrong",
-        },
-      ]);
+      questionResult = "wrong";
     }
+
+    setAnswers([
+      ...answers,
+      {
+        question: question.text,
+        answer: questionAnswer,
+        result: questionResult,
+      },
+    ]);
 
     setQuestionIndex(questionIndex + 1);
     if (questionIndex === questions.length - 1) {
