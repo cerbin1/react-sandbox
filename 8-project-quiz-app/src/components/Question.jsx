@@ -1,5 +1,7 @@
-import QuestionFinishTimeout from "./QuestionFinishTimeout";
-import QuestionStartTimeout from "./QuestionStartTimeout";
+import QuestionTimer from "./QuestionTimer";
+
+const ANSWER_TIME = 3000;
+const NEW_QUESTION_TIME = 1500;
 
 export default function Question({
   question,
@@ -10,10 +12,14 @@ export default function Question({
   return (
     <div id="question">
       {questionAnswered && (
-        <QuestionFinishTimeout onFinish={onFinishQuestionFinish} />
+        <QuestionTimer
+          time={NEW_QUESTION_TIME}
+          onFinish={onFinishQuestionFinish}
+          className="answered"
+        />
       )}
       {!questionAnswered && (
-        <QuestionStartTimeout onFinish={onFinishQuestionStart} />
+        <QuestionTimer time={ANSWER_TIME} onFinish={onFinishQuestionStart} />
       )}
 
       <h2>{question}</h2>
