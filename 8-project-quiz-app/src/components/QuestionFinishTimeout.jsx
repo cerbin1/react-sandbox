@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ProgressBar from "./ProgressBar";
 
-const TIMER = 1000;
+const TIMER = 2000;
 
 export default function QuestionFinishTimeout({ onFinish }) {
   useEffect(() => {
