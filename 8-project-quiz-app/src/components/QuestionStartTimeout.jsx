@@ -6,7 +6,7 @@ const TIMER = 3000;
 export default function QuestionStartTimeout({ onFinish }) {
   useEffect(() => {
     const timer = setTimeout(() => {
-      onFinish(-1);
+      onFinish();
     }, TIMER);
     return () => {
       clearTimeout(timer);

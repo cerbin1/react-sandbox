@@ -1,23 +1,21 @@
-import { useEffect } from "react";
+import QuestionFinishTimeout from "./QuestionFinishTimeout";
+import QuestionStartTimeout from "./QuestionStartTimeout";
 
-import ProgressBar from "./ProgressBar";
-
-const TIMER = 3000;
-
-export default function Question({ question, onHandle }) {
-  useEffect(() => {
-    const someTimer = setTimeout(() => {
-      onHandle(-1);
-    }, TIMER);
-
-    return () => {
-      clearTimeout(someTimer);
-    };
-  }, [onHandle]);
-
+export default function Question({
+  question,
+  questionAnswered,
+  onFinishQuestionFinish,
+  onFinishQuestionStart,
+}) {
   return (
     <div id="question">
-      <ProgressBar timer={TIMER} />
+      {questionAnswered && (
+        <QuestionFinishTimeout onFinish={onFinishQuestionFinish} />
+      )}
+      {!questionAnswered && (
+        <QuestionStartTimeout onFinish={onFinishQuestionStart} />
+      )}
+
       <h2>{question}</h2>
     </div>
   );
