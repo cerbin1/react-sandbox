@@ -2,7 +2,7 @@ import Answers from "./components/Answers";
 import Header from "./components/Header";
 import Question from "./components/Question";
 import Summary from "./components/Summary";
-import questions from "./questions";
+import QUESTIONS from "./questions";
 import { useState } from "react";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   const [answers, setAnswers] = useState([]);
   const [gameOver, setGameOver] = useState(false);
 
-  const question = questions[nextQuestionIndex];
+  const question = QUESTIONS[nextQuestionIndex];
 
   function handleQuestionAnswer(event, answerIndex) {
     if (!questionAnswered) {
@@ -38,7 +38,7 @@ function App() {
       ]);
 
       setQuestionAnswered(true);
-      if (nextQuestionIndex === questions.length - 1) {
+      if (nextQuestionIndex === QUESTIONS.length - 1) {
         setGameOver(true);
       }
     }
