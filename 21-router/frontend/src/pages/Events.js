@@ -19,11 +19,13 @@ export default function EventsPage() {
   return (
     <>
       <h1>Events Page</h1>
-      {events.map((event) => (
-        <p key={event.id}>
-          <Link to={`/events/${event.id}`}>{event.title}</Link>
-        </p>
-      ))}
+      <ul>
+        {events.map((event) => (
+          <li>
+            <Link to={event.id}>{event.title}</Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
