@@ -3,21 +3,15 @@ import { Link } from "react-router-dom";
 const events = [
   {
     id: "1",
-    title: "The amazing event",
-    description: "Some awesome event",
-    date: "2022-10-01",
+    title: "The amazing event 1",
   },
   {
     id: "2",
-    title: "The amazing event",
-    description: "Some awesome event",
-    date: "2022-10-01",
+    title: "The amazing event 2",
   },
   {
     id: "3",
-    title: "The amazing event",
-    description: "Some awesome event",
-    date: "2022-10-01",
+    title: "The amazing event 3",
   },
 ];
 
