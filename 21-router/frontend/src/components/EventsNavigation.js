@@ -1,4 +1,5 @@
-import classes from './EventsNavigation.module.css';
+import { Link } from "react-router-dom";
+import classes from "./EventsNavigation.module.css";
 
 function EventsNavigation() {
   return (
@@ -9,7 +10,7 @@ function EventsNavigation() {
             <a href="/events">All Events</a>
           </li>
           <li>
-            <a href="/events/new">New Event</a>
+            <Link to="/events/new"> New Event </Link>
           </li>
         </ul>
       </nav>
