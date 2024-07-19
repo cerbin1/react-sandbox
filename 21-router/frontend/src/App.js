@@ -11,6 +11,7 @@ import RootLayout from "./pages/RootLayout";
 import EventsRootLayout from "./pages/EventsRootLayout";
 import ErrorPage from "./pages/Error";
 import { action as manipulateEventAction } from "./components/EventForm";
+import NewsletterPage, { action as newsletterAction } from "./pages/Newsletter";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,6 @@ const router = createBrowserRouter([
       {
         path: "events",
         element: <EventsRootLayout />,
-
         children: [
           {
             index: true,
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
           },
           {
             path: ":eventId",
-            id: "event-details",
+            id: "event-detail",
             loader: eventDetailLoader,
             children: [
               {
@@ -52,6 +52,11 @@ const router = createBrowserRouter([
             action: manipulateEventAction,
           },
         ],
+      },
+      {
+        path: "newsletter",
+        element: <NewsletterPage />,
+        action: newsletterAction,
       },
     ],
   },
