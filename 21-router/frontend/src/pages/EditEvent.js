@@ -3,5 +3,5 @@ import EventFrom from "../components/EventForm";
 
 export default function EditEventPage() {
   const data = useRouteLoaderData("event-details");
-  return <EventFrom event={data.event} />;
+  return <EventFrom method="patch" event={data.event} />;
 }
