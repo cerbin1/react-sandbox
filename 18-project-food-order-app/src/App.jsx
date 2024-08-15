@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Meals from "./components/Meals";
 import Modal from "./components/Modal";
 import Cart from "./components/Cart";
-import SubmitForm from "./components/SubmitForm";
+import Checkout from "./components/Checkout";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -125,7 +125,7 @@ function App() {
         />
       </Modal>
       <Modal open={checkoutModalOpen}>
-        <SubmitForm
+        <Checkout
           total={cartTotal}
           onModalClose={closeCheckoutModal}
           onFormSubmit={handleSubmit}

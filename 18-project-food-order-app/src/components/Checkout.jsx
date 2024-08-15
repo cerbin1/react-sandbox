@@ -1,4 +1,4 @@
-export default function SubmitForm({
+export default function Checkout({
   total,
   onFormSubmit,
   onModalClose,
