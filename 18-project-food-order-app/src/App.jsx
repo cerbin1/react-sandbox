@@ -109,7 +109,10 @@ function App() {
 
   return (
     <>
-      <Header cartLength={cart.length} onCartClick={openCartModal} />
+      <Header
+        cartSize={cart.reduce((acc, item) => acc + item.quantity, 0)}
+        onCartClick={openCartModal}
+      />
       <Meals onAddToCart={handleAddToCart} />
       <Modal open={cartModalOpen} onClose={closeCartModal}>
         <Cart
