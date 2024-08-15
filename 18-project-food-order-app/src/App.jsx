@@ -1,11 +1,11 @@
 import Header from "./components/Header";
-import Products from "./components/Products";
+import Meals from "./components/Meals";
 
 function App() {
   return (
     <>
       <Header />
-      <Products />
+      <Meals />
     </>
   );
 }
