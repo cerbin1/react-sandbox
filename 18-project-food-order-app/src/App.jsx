@@ -7,6 +7,9 @@ import Cart from "./components/Cart";
 function App() {
   const [cart, setCart] = useState([]);
   const [cartModalOpen, setCartModalOpen] = useState(false);
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState();
 
   const cartTotal = cart.reduce((acc, item) => {
     return acc + item.price * item.quantity;
@@ -55,8 +58,58 @@ function App() {
     setCartModalOpen(false);
   }
 
+  function openCheckoutModal() {
+    setCheckoutModalOpen(true);
+  }
+
+  function closeCheckoutModal() {
+    setCheckoutModalOpen(false);
+  }
+
+  function handleCheckout() {
+    if (cart.length > 0) {
+      closeCartModal();
+      openCheckoutModal();
+    } else {
+      alert("Your cart is empty!");
+    }
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    setSubmitting(true);
+    setSubmitError();
+
+    try {
+      const formData = new FormData(event.target);
+      const data = {
+        order: { customer: Object.fromEntries(formData), items: { ...cart } },
+      };
+      const response = await fetch("http://localhost:3000/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        closeCheckoutModal();
+        setCart([]);
+        alert("Your order has been received!");
+      } else {
+        throw new Error("Something went wrong!");
+      }
+    } catch (error) {
+      setSubmitError(error.message);
+    }
+    setSubmitting(false);
+  }
+
   return (
     <>
+      <Header cartLength={cart.length} onCartClick={openCartModal} />
+      <Meals onAddToCart={handleAddToCart} />
       <Modal open={cartModalOpen} onClose={closeCartModal}>
         <Cart
           cart={cart}
@@ -64,11 +117,47 @@ function App() {
           onRemoveFromCart={handleRemoveFromCart}
           onAddToCart={handleAddToCart}
           onModalClose={closeCartModal}
+          onCheckout={handleCheckout}
         />
       </Modal>
+      <Modal open={checkoutModalOpen}>
+        <h2>Checkout</h2>
+        <p>Total Amount: ${cartTotal}</p>
+        <form onSubmit={handleSubmit}>
+          <div className="control">
+            <label htmlFor="name">Full Name</label>
+            <input name="name" type="text" id="name" required />
+          </div>
+          <div className="control">
+            <label htmlFor="email">E-Mail Address</label>
+            <input name="email" type="email" id="email" required />
+          </div>
+          <div className="control">
+            <label htmlFor="street">Street</label>
+            <input name="street" type="text" id="street" required />
+          </div>
+          <div className="control-row">
+            <div className="control">
+              <label htmlFor="postal-code">Postal Code</label>
+              <input name="postal-code" type="text" id="postal-code" required />
+            </div>
+            <div className="control">
+              <label htmlFor="city">City</label>
+              <input name="city" type="text" id="city" required />
+            </div>
+          </div>
+          <div className="modal-actions">
+            <span className="text-button" onClick={closeCheckoutModal}>
+              Close
+            </span>
+            <button disabled={submitting} className="button">
+              {submitting ? "Submitting..." : "Submit Order"}
+            </button>
+          </div>
+        </form>
 
-      <Header cartLength={cart.length} onCartClick={openCartModal} />
-      <Meals onAddToCart={handleAddToCart} />
+        {submitError && <p>{submitError}</p>}
+      </Modal>
     </>
   );
 }

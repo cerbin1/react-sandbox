@@ -4,12 +4,12 @@ export default function Cart({
   onRemoveFromCart,
   onAddToCart,
   onModalClose,
+  onCheckout,
 }) {
   return (
     <div className="cart">
       <h2>Your Cart</h2>
       <ul>
-        <h2>Your Cart</h2>
         {cart.map((item) => (
           <li className="cart-item" key={item.id}>
             <p>
@@ -29,7 +29,9 @@ export default function Cart({
         <span className="text-button" onClick={onModalClose}>
           Close
         </span>
-        <button className="button">Go to checkout</button>
+        <button className="button" onClick={onCheckout}>
+          Go to checkout
+        </button>
       </div>
     </div>
   );
