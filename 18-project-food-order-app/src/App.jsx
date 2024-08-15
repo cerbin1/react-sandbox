@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Meals from "./components/Meals";
+import Modal from "./components/Modal";
 
 function App() {
   const [cart, setCart] = useState([]);
-  const [test, setTest] = useState(false);
+  const [cartModalOpen, setCartModalOpen] = useState(false);
 
   const cartTotal = cart.reduce((acc, item) => {
     return acc + item.price * item.quantity;
@@ -46,16 +47,16 @@ function App() {
   }
 
   function openCartModal() {
-    setTest(true);
+    setCartModalOpen(true);
   }
 
   function closeCartModal() {
-    setTest(false);
+    setCartModalOpen(false);
   }
 
   return (
     <>
-      <dialog className="modal" open={test} onClose={closeCartModal}>
+      <Modal open={cartModalOpen} onClose={closeCartModal}>
         <ul className="cart">
           <h2>Your Cart</h2>
           {cart.map((item) => (
@@ -73,10 +74,13 @@ function App() {
         </ul>
         <div className="cart-total">{cartTotal}</div>
         <div className="modal-actions">
-          <span className="text-button">Close</span>
+          <span className="text-button" onClick={closeCartModal}>
+            Close
+          </span>
           <button className="button">Go to checkout</button>
         </div>
-      </dialog>
+      </Modal>
+
       <Header cartLength={cart.length} onCartClick={openCartModal} />
       <Meals onAddToCart={handleAddToCart} />
     </>
