@@ -1,13 +1,13 @@
 import logo from "../assets/logo.jpg";
 
-export default function Header({ cartLength }) {
+export default function Header({ cartLength, onCartClick }) {
   return (
     <div id="main-header">
       <div id="title">
         <img src={logo} alt="logo" />
         <h1>ReactFood</h1>
       </div>
-      <button>Cart ({cartLength})</button>
+      <button onClick={onCartClick}>Cart ({cartLength})</button>
     </div>
   );
 }

@@ -39,7 +39,9 @@ export default function Meals({ onAddToCart }) {
               <p className="meal-item-price">{meal.price}</p>
               <p className="meal-item-description">{meal.description}</p>
               <div className="meal-item-actions">
-                <button onClick={() => onAddToCart(meal)}>Add to cart</button>
+                <button className="button" onClick={() => onAddToCart(meal)}>
+                  Add to cart
+                </button>
               </div>
             </article>
           ))}
