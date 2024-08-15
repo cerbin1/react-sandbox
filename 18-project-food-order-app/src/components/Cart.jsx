@@ -6,8 +6,9 @@ export default function Cart({
   onModalClose,
 }) {
   return (
-    <>
-      <ul className="cart">
+    <div className="cart">
+      <h2>Your Cart</h2>
+      <ul>
         <h2>Your Cart</h2>
         {cart.map((item) => (
           <li className="cart-item" key={item.id}>
@@ -30,6 +31,6 @@ export default function Cart({
         </span>
         <button className="button">Go to checkout</button>
       </div>
-    </>
+    </div>
   );
 }
