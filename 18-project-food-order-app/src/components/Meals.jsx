@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function Meals() {
+export default function Meals({ onAddToCart }) {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
@@ -16,7 +16,6 @@ export default function Meals() {
         }
         const data = await response.json();
         setMeals(data);
-        console.log(data);
       } catch (error) {
         setError(error.message);
       }
@@ -40,7 +39,7 @@ export default function Meals() {
               <p className="meal-item-price">{meal.price}</p>
               <p className="meal-item-description">{meal.description}</p>
               <div className="meal-item-actions">
-                <button>Add to cart</button>
+                <button onClick={() => onAddToCart(meal)}>Add to cart</button>
               </div>
             </article>
           ))}
