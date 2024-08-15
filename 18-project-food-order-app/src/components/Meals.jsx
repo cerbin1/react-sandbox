@@ -28,24 +28,28 @@ export default function Meals({ onAddToCart }) {
     <>
       {loading && <p>Loading...</p>}
       {!loading && meals && (
-        <div id="meals">
+        <ul id="meals">
           {meals.map((meal) => (
-            <article className="meal-item" key={meal.id}>
-              <img
-                src={`http://localhost:3000/${meal.image}`}
-                alt={meal.name}
-              />
-              <h3>{meal.name}</h3>
-              <p className="meal-item-price">{meal.price}</p>
-              <p className="meal-item-description">{meal.description}</p>
-              <div className="meal-item-actions">
-                <button className="button" onClick={() => onAddToCart(meal)}>
-                  Add to cart
-                </button>
-              </div>
-            </article>
+            <li className="meal-item" key={meal.id}>
+              <article>
+                <img
+                  src={`http://localhost:3000/${meal.image}`}
+                  alt={meal.name}
+                />
+                <div>
+                  <h3>{meal.name}</h3>
+                  <span className="meal-item-price">{meal.price}</span>
+                  <p className="meal-item-description">{meal.description}</p>
+                </div>
+                <div className="meal-item-actions">
+                  <button className="button" onClick={() => onAddToCart(meal)}>
+                    Add to cart
+                  </button>
+                </div>
+              </article>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
       {error && <p>{error}</p>}
     </>
