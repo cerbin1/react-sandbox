@@ -1,9 +1,16 @@
 import { useContext, useState } from "react";
 import CartContext from "../store/CartContext";
+import useHttp from "../hooks/useHttp";
+import Error from "./Error";
+
+const requestConfig = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 
 export default function Checkout({ onModalClose }) {
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState();
   const cartContext = useContext(CartContext);
   const cartItems = cartContext.items;
   const cartTotalValue = cartItems.reduce(
@@ -11,42 +18,49 @@ export default function Checkout({ onModalClose }) {
     0
   );
 
+  const {
+    data,
+    isLoading: isSubmitting,
+    error,
+    sendRequest,
+  } = useHttp("http://localhost:3000/orders", requestConfig);
+
   async function handleSubmit(event) {
     event.preventDefault();
 
-    setSubmitting(true);
-    setSubmitError();
+    const formData = new FormData(event.target);
+    const data = {
+      order: {
+        customer: Object.fromEntries(formData),
+        items: { ...cartItems },
+      },
+    };
+    sendRequest(JSON.stringify(data));
+  }
 
-    try {
-      const formData = new FormData(event.target);
-      const data = {
-        order: {
-          customer: Object.fromEntries(formData),
-          items: { ...cartItems },
-        },
-      };
-      const response = await fetch("http://localhost:3000/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        handleFinish();
-      } else {
-        throw new Error("Something went wrong!");
-      }
-    } catch (error) {
-      setSubmitError(error.message);
-    }
-    setSubmitting(false);
+  if (data && !error) {
+    handleFinish();
   }
 
   function handleFinish() {
     alert("Your order has been received!");
     onModalClose();
     cartContext.clearCart();
+  }
+
+  let actions = (
+    <>
+      <span className="text-button" onClick={onModalClose}>
+        Close
+      </span>
+      <button disabled={isSubmitting} className="button">
+        {isSubmitting ? "Submitting..." : "Submit Order"}
+      </button>
+    </>
+  );
+
+  if (isSubmitting) {
+    actions = <span>Sending order data...</span>;
   }
 
   return (
@@ -76,17 +90,9 @@ export default function Checkout({ onModalClose }) {
             <input name="city" type="text" id="city" required />
           </div>
         </div>
-        <div className="modal-actions">
-          <span className="text-button" onClick={onModalClose}>
-            Close
-          </span>
-          <button disabled={submitting} className="button">
-            {submitting ? "Submitting..." : "Submit Order"}
-          </button>
-        </div>
+        {error && <Error title="Failed to submit order" message={error} />}
+        <div className="modal-actions">{actions}</div>
       </form>
-
-      {submitError && <p>{submitError}</p>}
     </>
   );
 }

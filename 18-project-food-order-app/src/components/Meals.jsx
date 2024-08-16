@@ -1,39 +1,33 @@
-import { useContext, useEffect } from "react";
-import { useState } from "react";
+import { useContext } from "react";
 import CartContext from "../store/CartContext";
+import useHttp from "../hooks/useHttp";
+import Error from "./Error";
+
+const requestConfig = {};
 
 export default function Meals() {
-  const [meals, setMeals] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  const {
+    data: meals,
+    isLoading,
+    error,
+  } = useHttp("http://localhost:3000/meals", requestConfig, []);
   const cartContext = useContext(CartContext);
-
-  useEffect(() => {
-    async function fetchMeals() {
-      setLoading(true);
-      try {
-        const response = await fetch("http://localhost:3000/meals");
-        if (!response.ok) {
-          throw new Error("Something went wrong!");
-        }
-        const data = await response.json();
-        setMeals(data);
-      } catch (error) {
-        setError(error.message);
-      }
-      setLoading(false);
-    }
-    fetchMeals();
-  }, []);
 
   function handleAddMealToCart(meal) {
     cartContext.addItem(meal);
   }
 
+  if (isLoading) {
+    return <p className="center">Fetching meals...</p>;
+  }
+
+  if (error) {
+    return <Error title="Failed to fetch meals" message={error} />;
+  }
+
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {!loading && meals && (
+      {meals && (
         <ul id="meals">
           {meals.map((meal) => (
             <li className="meal-item" key={meal.id}>
@@ -60,7 +54,6 @@ export default function Meals() {
           ))}
         </ul>
       )}
-      {error && <p>{error}</p>}
     </>
   );
 }
