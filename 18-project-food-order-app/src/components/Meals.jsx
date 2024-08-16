@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
+import CartContext from "../store/CartContext";
 
-export default function Meals({ onAddToCart }) {
+export default function Meals() {
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
+  const cartContext = useContext(CartContext);
 
   useEffect(() => {
     async function fetchMeals() {
@@ -24,6 +26,10 @@ export default function Meals({ onAddToCart }) {
     fetchMeals();
   }, []);
 
+  function handleAddMealToCart(meal) {
+    cartContext.addItem(meal);
+  }
+
   return (
     <>
       {loading && <p>Loading...</p>}
@@ -42,7 +48,10 @@ export default function Meals({ onAddToCart }) {
                   <p className="meal-item-description">{meal.description}</p>
                 </div>
                 <div className="meal-item-actions">
-                  <button className="button" onClick={() => onAddToCart(meal)}>
+                  <button
+                    className="button"
+                    onClick={() => handleAddMealToCart(meal)}
+                  >
                     Add to cart
                   </button>
                 </div>

@@ -1,15 +1,59 @@
-export default function Checkout({
-  total,
-  onFormSubmit,
-  onModalClose,
-  submitting,
-  submitError,
-}) {
+import { useContext, useState } from "react";
+import CartContext from "../store/CartContext";
+
+export default function Checkout({ onModalClose }) {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState();
+  const cartContext = useContext(CartContext);
+  const cartItems = cartContext.items;
+  const cartTotalValue = cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    setSubmitting(true);
+    setSubmitError();
+
+    try {
+      const formData = new FormData(event.target);
+      const data = {
+        order: {
+          customer: Object.fromEntries(formData),
+          items: { ...cartItems },
+        },
+      };
+      const response = await fetch("http://localhost:3000/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        handleFinish();
+      } else {
+        throw new Error("Something went wrong!");
+      }
+    } catch (error) {
+      setSubmitError(error.message);
+    }
+    setSubmitting(false);
+  }
+
+  function handleFinish() {
+    alert("Your order has been received!");
+    onModalClose();
+    cartContext.clearCart();
+  }
+
   return (
     <>
       <h2>Checkout</h2>
-      <p>Total Amount: ${total}</p>
-      <form onSubmit={onFormSubmit}>
+      <p>Total Amount: ${cartTotalValue.toFixed(2)}</p>
+      <form onSubmit={handleSubmit}>
         <div className="control">
           <label htmlFor="name">Full Name</label>
           <input name="name" type="text" id="name" required />
