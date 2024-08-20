@@ -1,7 +1,11 @@
-import "./App.css";
+import Todos from "./components/Todos";
 
 function App() {
-  return <>Hello World!</>;
+  return (
+    <>
+      <Todos items={["Learn React", "Learn TypeScript"]} />
+    </>
+  );
 }
 
 export default App;
